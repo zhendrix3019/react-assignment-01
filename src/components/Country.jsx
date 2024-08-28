@@ -1,37 +1,24 @@
 import React from 'react';
-import { Card, CardContent, Typography, Button } from '@mui/material';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { Card, CardContent, Typography } from '@mui/material';
+import Medals from './Medals';
+import '../App.css';  // Importing App.css to ensure styles are applied
 
-function Country({ name, gold, onIncrement, onDecrement }) {
+function Country({ name, gold, silver, bronze, onIncrement, onDecrement }) {
+  const totalMedals = gold + silver + bronze;
+
   return (
-    <Card style={{ maxWidth: 400, margin: '0 auto', marginTop: '20px', textAlign: 'center' }}>
+    <Card className="country-card">
       <CardContent>
         <Typography variant="h5" component="div">
           Country: {name}
         </Typography>
         <Typography variant="h6" color="text.secondary">
-          Gold Medals: {gold}
+          Total Medals: {totalMedals}
         </Typography>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={onIncrement} 
-          startIcon={<AddCircleOutlineIcon />}
-          style={{ marginTop: '20px', marginRight: '10px' }}
-        >
-          Increment Gold Medal Count
-        </Button>
-        <Button 
-          variant="outlined" 
-          color="secondary" 
-          onClick={onDecrement} 
-          startIcon={<RemoveCircleOutlineIcon />}
-          style={{ marginTop: '20px' }}
-          disabled={gold === 0}
-        >
-          Decrement Gold Medal Count
-        </Button>
+
+        <Medals type="gold" count={gold} onIncrement={onIncrement} onDecrement={onDecrement} />
+        <Medals type="silver" count={silver} onIncrement={onIncrement} onDecrement={onDecrement} />
+        <Medals type="bronze" count={bronze} onIncrement={onIncrement} onDecrement={onDecrement} />
       </CardContent>
     </Card>
   );
